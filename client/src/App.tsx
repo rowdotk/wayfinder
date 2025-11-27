@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import SearchCard from './components/SearchCard';
+import ResultCard from './components/ResultCard';
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
+        margin: '10%',
       }}
-      gap={2}
+      gap={5}
     >
       <Typography
         variant="h1"
@@ -20,6 +22,7 @@ function App() {
         WAYFINDER
       </Typography>
       <SearchCard />
+      <ResultCard />
     </Box>
   );
 }

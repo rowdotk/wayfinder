@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "tsx watch server/src/index.ts"
+    "start:server": "tsx watch server/src/index.ts",
+    "start:client": "npm run dev --prefix client",
+    "start:all": "npm run start:server & npm run start:client"
   },
   "author": "",
   "license": "ISC",

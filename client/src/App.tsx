@@ -1,25 +1,26 @@
-import backgroundImage from './assets/planet-background.jpg';
+import { Box, Typography } from '@mui/material';
+import SearchCard from './components/SearchCard';
 
 function App() {
   return (
-    <div
-      style={{
-        width: '100%',
-        minHeight: '100vh',
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
+    <Box
+      sx={{
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'white',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+        minHeight: '100vh',
       }}
+      gap={2}
     >
-      <h1>Greetings, young Padawan.</h1>
-    </div>
+      <Typography
+        variant="h1"
+        sx={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 'bold', color: 'white', textAlign: 'center', mb: 1 }}
+      >
+        WAYFINDER
+      </Typography>
+      <SearchCard />
+    </Box>
   );
 }
 

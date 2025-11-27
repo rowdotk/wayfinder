@@ -1,13 +1,20 @@
-import { PlannedRoute, Route, RouteServicesInterface, SpaceShip } from '../types';
+import {
+  GetFastestRouteResponse,
+  PlannedRoute,
+  Route,
+  RouteServicesInterface,
+  SpaceShip,
+} from '../types/routeServicesInterface';
+import { DBServices } from './dbServices';
 
 export class RouteServices implements RouteServicesInterface {
-  constructor(private readonly routes: Route[]) {}
+  private dbServices: DBServices;
 
-  checkIfReachable = (destination: string, routes: Route[]): boolean => {
-    return routes.some((route) => route.destination === destination);
-  };
+  constructor(dbServices: DBServices) {
+    this.dbServices = dbServices;
+  }
 
-  shouldAbandonRoute = (route: PlannedRoute, fastestRoute: PlannedRoute | undefined): boolean => {
+  private shouldAbandonRoute = (route: PlannedRoute, fastestRoute: PlannedRoute | undefined): boolean => {
     if (!fastestRoute) {
       return false;
     }
@@ -20,21 +27,18 @@ export class RouteServices implements RouteServicesInterface {
     return false;
   };
 
-  getFastestRoute = (
+  private planRoute = (
     origin: string,
     destination: string,
     spaceShip: SpaceShip,
     routes: Route[],
     plannedRoute?: PlannedRoute,
     fastestRoute?: PlannedRoute
-  ): PlannedRoute => {
-    if (!this.checkIfReachable(destination, routes)) {
-      throw new Error(`Destination ${destination} is not reachable`);
-    }
-
+  ): PlannedRoute | undefined => {
     if (!plannedRoute) {
       plannedRoute = { route: [origin], duration: 0, remainingFuelDays: spaceShip.autonomy };
     }
+
     const currentLocation = plannedRoute.route.at(-1);
     if (!currentLocation) {
       throw new Error('Current location not found');
@@ -49,6 +53,11 @@ export class RouteServices implements RouteServicesInterface {
         );
       })
       .sort((a, b) => a.travel_time - b.travel_time);
+
+    // if we run into a dead end, we move on to the next route
+    if (connectingRoutes.length === 0) {
+      return;
+    }
 
     for (const connectingRoute of connectingRoutes) {
       const copiedRoutes = structuredClone(routes);
@@ -87,7 +96,7 @@ export class RouteServices implements RouteServicesInterface {
       }
 
       // if haven't arrived, nor abandoned, continue searching
-      fastestRoute = this.getFastestRoute(
+      fastestRoute = this.planRoute(
         currentLocation,
         destination,
         spaceShip,
@@ -96,10 +105,35 @@ export class RouteServices implements RouteServicesInterface {
         fastestRoute
       );
     }
-    if (!fastestRoute) {
-      throw new Error('No route was found');
+    return fastestRoute;
+  };
+
+  public getFastestRoute = async (
+    origin: string,
+    destination: string,
+    spaceShip: SpaceShip
+  ): Promise<GetFastestRouteResponse> => {
+    const db = await this.dbServices.openDB(spaceShip.routes_db);
+    const routes = await db.all('SELECT * FROM routes');
+
+    const result = this.planRoute(
+      origin,
+      destination,
+      spaceShip,
+      routes.map((route, index) => {
+        return {
+          id: index + 1,
+          origin: route.origin,
+          destination: route.destination,
+          travel_time: route.travel_time,
+        };
+      })
+    );
+
+    if (!result) {
+      throw new Error(`No route was found from ${origin} to ${destination}`);
     }
 
-    return fastestRoute;
+    return { route: result.route, duration: result.duration };
   };
 }

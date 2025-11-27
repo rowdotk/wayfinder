@@ -1,5 +1,5 @@
 import { NextFunction, Request } from 'express';
-import { GetFastestRouteRequest } from '../types';
+import { GetFastestRouteRequest } from '../types/routeServicesInterface';
 import Joi, { ObjectSchema } from 'joi';
 
 export class RouteControllers {

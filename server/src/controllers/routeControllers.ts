@@ -9,7 +9,7 @@ export class RouteControllers {
     arrival: Joi.string().required(),
   });
 
-  public getFastestRouteController = async ({ body }: Request): Promise<GetFastestRouteRequest> => {
-    return this.getFastestRouteSchema.validateAsync(body);
+  public getFastestRouteController = async ({ query }: Request): Promise<GetFastestRouteRequest> => {
+    return this.getFastestRouteSchema.validateAsync(query);
   };
 }

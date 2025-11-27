@@ -16,7 +16,7 @@ app.get('/', (_, res) => {
   res.send('The way, you have found. 🪐');
 });
 
-app.post('/compute', async (req: Request, res: Response) => {
+app.get('/compute', async (req: Request, res: Response) => {
   try {
     // hardcoded spaceShip because of instructions, but changeable if needed
     const spaceShip = millenniumFalcon;

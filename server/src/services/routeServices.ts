@@ -6,6 +6,7 @@ import {
   Spaceship,
 } from '../types/routeServicesInterface';
 import { DBServices } from './dbServices';
+import { toTitleCase } from '../helpers/stringFormatting';
 
 export class RouteServices implements RouteServicesInterface {
   private dbServices: DBServices;
@@ -119,12 +120,19 @@ export class RouteServices implements RouteServicesInterface {
     spaceship: Spaceship
   ): Promise<GetFastestRouteResponse> => {
     try {
+      const formattedOrigin = toTitleCase(origin);
+      const formattedDestination = toTitleCase(destination);
+
+      if (formattedOrigin === formattedDestination) {
+        throw new Error(`Already here, you are.`);
+      }
+
       const db = await this.dbServices.openDB(spaceship.routes_db);
       const routes = await db.all('SELECT * FROM routes');
 
       const result = this.planRoute(
-        origin,
-        destination,
+        formattedOrigin,
+        formattedDestination,
         spaceship,
         routes.map((route, index) => {
           return {
@@ -137,7 +145,7 @@ export class RouteServices implements RouteServicesInterface {
       );
 
       if (!result) {
-        throw new Error(`No route was found from ${origin} to ${destination}`);
+        throw new Error(`No route was found between ${formattedOrigin} and ${formattedDestination}`);
       }
 
       return { route: result.route, duration: result.duration };

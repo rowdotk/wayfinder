@@ -23,8 +23,8 @@ app.get('/compute', async (req: Request, res: Response) => {
     // hardcoded spaceShip because of instructions, but changeable if needed
     const spaceship = millenniumFalcon;
 
-    const validatedBody = await routeControllers.getFastestRouteController(req);
-    const result = await routeServices.getFastestRoute(spaceship.departure, validatedBody.arrival, spaceship);
+    const validatedQuery = await routeControllers.getFastestRouteController(req);
+    const result = await routeServices.getFastestRoute(spaceship.departure, validatedQuery.arrival, spaceship);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });

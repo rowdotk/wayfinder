@@ -13,9 +13,14 @@ export class DBServices implements DBServicesInterface {
   }
 
   async openDB(dbFileName: string) {
-    return open({
-      filename: join(this.dbFolderPath, dbFileName),
-      driver: sqlite3.Database,
-    });
+    try {
+      return open({
+        filename: join(this.dbFolderPath, dbFileName),
+        driver: sqlite3.Database,
+      });
+    } catch (error) {
+      console.error(`dbServices::openDB::error ${error}`);
+      throw new Error(`${error}`);
+    }
   }
 }

@@ -2,12 +2,15 @@ import { Alert, Box, Card, CardContent, Typography } from '@mui/material';
 import TodayIcon from '@mui/icons-material/Today';
 import RouteStepper from './RouteStepper';
 import '../styles/Card.css';
+import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
 
-export default function ResultCard() {
-  const result = {
-    route: ['Tatooine', 'Hoth', 'Endor', 'Coruscant', 'Naboo', 'Bespin', 'Endor'],
-    duration: 8,
-  };
+interface ResultCardProps {
+  result: GetFastestRouteResponse;
+}
+
+export default function ResultCard(props: ResultCardProps) {
+  const { result } = props;
+
   return (
     <Card className="card">
       <CardContent>

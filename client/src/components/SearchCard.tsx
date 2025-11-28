@@ -11,29 +11,37 @@ import {
   Tooltip,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/Card.css';
 import useGetRoute from '../hooks/useGetRoute';
+import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
 
-export default function SearchCard() {
+interface SearchCardProps {
+  setResult: (result: GetFastestRouteResponse | null) => void;
+}
+
+export default function SearchCard(props: SearchCardProps) {
+  const { setResult } = props;
   const [destination, setDestination] = useState<string>('');
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
-  const {
-    data: routeData,
-    isFetching,
-    refetch,
-  } = useGetRoute(destination, (error: any) => {
+  const { isFetching, refetch } = useGetRoute(destination, setResult, (error: any) => {
+    setResult(null);
     setSnackbarMessage(error.response?.data?.error || 'An unknown error occurred');
   });
 
   const handleClick = () => {
     if (origin && destination) {
+      setSnackbarMessage('');
       refetch();
     }
   };
 
-  console.log('---routeData:', routeData);
+  useEffect(() => {
+    if (!destination) {
+      setResult(null);
+    }
+  }, [destination, setResult, setSnackbarMessage]);
 
   return (
     <>
@@ -95,6 +103,11 @@ export default function SearchCard() {
                 variant="outlined"
                 onChange={(e) => setDestination(e.target.value)}
                 value={destination}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleClick();
+                  }
+                }}
                 fullWidth
               />
             </Box>
@@ -117,8 +130,12 @@ export default function SearchCard() {
           </Button>
         </CardContent>
       </Card>
-      <Snackbar open={!!snackbarMessage} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <Alert severity="error" variant="filled" sx={{ width: '100%' }} onClose={() => setSnackbarMessage('')}>
+      <Snackbar
+        open={!!snackbarMessage}
+        onClose={() => setSnackbarMessage('')}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert severity="error" variant="filled" sx={{ width: '100%' }}>
           {snackbarMessage}
         </Alert>
       </Snackbar>

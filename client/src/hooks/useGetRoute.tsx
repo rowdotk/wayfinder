@@ -1,8 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import RouteServices from '../services/routeServices';
+import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
 
-export default function useGetRoute(destination: string, onErrorCallback: (error: any) => void) {
+export default function useGetRoute(
+  destination: string,
+  onSuccessCallback: (result: GetFastestRouteResponse) => void,
+  onErrorCallback: (error: any) => void
+) {
   const routeServices = new RouteServices();
 
   const query = useQuery({
@@ -11,6 +16,12 @@ export default function useGetRoute(destination: string, onErrorCallback: (error
     enabled: false,
     retry: false,
   });
+
+  useEffect(() => {
+    if (query.data) {
+      onSuccessCallback(query.data);
+    }
+  }, [query.data, onSuccessCallback]);
 
   useEffect(() => {
     if (query.error) {

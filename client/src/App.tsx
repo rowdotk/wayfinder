@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import SearchCard from './components/SearchCard';
 import ResultCard from './components/ResultCard';
 import { useState } from 'react';
-import type { GetFastestRouteResponse } from './types/searchServicesInterface';
+import type { GetFastestRouteResponse } from './types/routeServicesInterface';
 
 function App() {
   const [result, setResult] = useState<GetFastestRouteResponse | null>(null);
@@ -13,8 +13,7 @@ function App() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
-        margin: '10%',
+        margin: '5%',
       }}
       gap={5}
     >

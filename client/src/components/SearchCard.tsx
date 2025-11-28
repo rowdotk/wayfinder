@@ -14,7 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
 import '../styles/Card.css';
 import useGetRoute from '../hooks/useGetRoute';
-import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
+import type { GetFastestRouteResponse } from '../types/routeServicesInterface';
 
 interface SearchCardProps {
   setResult: (result: GetFastestRouteResponse | null) => void;
@@ -31,17 +31,19 @@ export default function SearchCard(props: SearchCardProps) {
   });
 
   const handleClick = () => {
-    if (origin && destination) {
-      setSnackbarMessage('');
-      refetch();
+    if (!destination) {
+      setSnackbarMessage('Speak, you must… where go you desire.');
+      return;
     }
+    setSnackbarMessage('');
+    refetch();
   };
 
   useEffect(() => {
     if (!destination) {
       setResult(null);
     }
-  }, [destination, setResult, setSnackbarMessage]);
+  }, [destination, setResult]);
 
   return (
     <>
@@ -79,7 +81,7 @@ export default function SearchCard(props: SearchCardProps) {
               <Typography variant="body1" fontWeight="bold">
                 SPACESHIP
               </Typography>
-              <Tooltip title="Only Millennium Falcon is available">
+              <Tooltip title="The Millennium Falcon alone, you may choose.">
                 <Autocomplete
                   fullWidth
                   disabled
@@ -116,7 +118,6 @@ export default function SearchCard(props: SearchCardProps) {
             variant="contained"
             color="primary"
             onClick={handleClick}
-            disabled={!origin || !destination || isFetching}
             sx={{
               fontFamily: 'Orbitron, sans-serif',
               fontWeight: 'bold',

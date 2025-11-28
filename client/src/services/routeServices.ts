@@ -1,7 +1,6 @@
-import type SearchServicesInterface from '../types/searchServicesInterface';
 import axios from 'axios';
-
-export default class SearchServices implements SearchServicesInterface {
+import type RouteServicesInterface from '../types/routeServicesInterface';
+export default class RouteServices implements RouteServicesInterface {
   constructor() {}
 
   getRoute = async (destination: string) => {

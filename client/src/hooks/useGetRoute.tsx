@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import RouteServices from '../services/routeServices';
-import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
+import type { GetFastestRouteResponse } from '../types/routeServicesInterface';
 
 export default function useGetRoute(
   destination: string,

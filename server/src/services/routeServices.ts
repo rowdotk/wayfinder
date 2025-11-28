@@ -145,7 +145,7 @@ export class RouteServices implements RouteServicesInterface {
       );
 
       if (!result) {
-        throw new Error(`No route was found between ${formattedOrigin} and ${formattedDestination}`);
+        throw new Error(`Between ${formattedOrigin} and ${formattedDestination}, a way exists not`);
       }
 
       return { route: result.route, duration: result.duration };

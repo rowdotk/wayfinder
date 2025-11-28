@@ -1,18 +1,22 @@
-import { useQuery, type UseQueryResult } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import RouteServices from '../services/routeServices';
-import type { GetFastestRouteResponse } from '../types/searchServicesInterface';
 
-export default function useGetRoute(
-  origin: string,
-  destination: string
-): UseQueryResult<GetFastestRouteResponse, Error> {
+export default function useGetRoute(destination: string, onErrorCallback: (error: any) => void) {
   const routeServices = new RouteServices();
-  return useQuery(['getRoute', origin, destination], () => routeServices.getRoute(origin, destination), {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.error(error);
-    },
+
+  const query = useQuery({
+    queryKey: ['getRoute', destination],
+    queryFn: () => routeServices.getRoute(destination),
+    enabled: false,
+    retry: false,
   });
+
+  useEffect(() => {
+    if (query.error) {
+      onErrorCallback(query.error);
+    }
+  }, [query.error, onErrorCallback]);
+
+  return query;
 }

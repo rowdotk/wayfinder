@@ -1,7 +1,7 @@
 import { Alert, Card, CardContent, Box, TextField, Button, Autocomplete, Snackbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
-import '../styles/Card.css';
+import '../styles/card.css';
 import useGetRoute from '../hooks/useGetRoute';
 import { GetFastestRouteResponse } from '../types/routeServicesInterface';
 import { SPACESHIPS, type Spaceship } from '../constants/spaceships';

@@ -1,14 +1,13 @@
 {
-  "name": "wayfinder",
+  "name": "wayfinder-server",
   "version": "1.0.0",
   "description": "When you're ready, start your application by running: `docker compose up --build`.",
   "main": "index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "tsx watch ./src/index.ts",
-    "start:client": "npm run dev --prefix client",
-    "start:all": "npm run start:server & npm run start:client"
+    "start:server": "tsx ./src/index.ts",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",

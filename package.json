@@ -1,0 +1,12 @@
+{
+  "name": "wayfinder-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:server": "npm run start:server --prefix server",
+    "start:client": "npm run start:client --prefix client",
+    "start:all": "npm run start:server & npm run start:client"
+  },
+  "author": "",
+  "license": "ISC"
+}

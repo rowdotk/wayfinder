@@ -1,7 +1,7 @@
 import { Alert, Box, Card, CardContent, Typography } from '@mui/material';
 import TodayIcon from '@mui/icons-material/Today';
 import RouteStepper from './RouteStepper';
-import '../styles/Card.css';
+import '../styles/card.css';
 import { GetFastestRouteResponse } from '../types/routeServicesInterface';
 
 interface ResultCardProps {

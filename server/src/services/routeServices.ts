@@ -43,7 +43,7 @@ export class RouteServices implements RouteServicesInterface {
 
       const currentLocation = plannedRoute.route.at(-1);
       if (!currentLocation) {
-        throw new Error('Current location not found');
+        throw new Error('Current location not found.');
       }
 
       // find all routes that passes through currentLocation, sort by travel_time to minimize loop count (since we implemented shouldAbandonRoute())
@@ -145,7 +145,7 @@ export class RouteServices implements RouteServicesInterface {
       );
 
       if (!result) {
-        throw new Error(`Between ${formattedOrigin} and ${formattedDestination}, a way exists not`);
+        throw new Error(`Between ${formattedOrigin} and ${formattedDestination}, a way exists not.`);
       }
 
       return { route: result.route, duration: result.duration };

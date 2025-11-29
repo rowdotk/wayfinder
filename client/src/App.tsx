@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import SearchCard from './components/SearchCard';
 import ResultCard from './components/ResultCard';
 import { useState } from 'react';
-import type { GetFastestRouteResponse } from './types/routeServicesInterface';
+import { GetFastestRouteResponse } from './types/routeServicesInterface';
 
 function App() {
   const [result, setResult] = useState<GetFastestRouteResponse | null>(null);

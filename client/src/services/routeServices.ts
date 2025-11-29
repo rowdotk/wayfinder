@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type RouteServicesInterface from '../types/routeServicesInterface';
+import RouteServicesInterface from '../types/routeServicesInterface';
 export default class RouteServices implements RouteServicesInterface {
   constructor() {}
 

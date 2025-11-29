@@ -1,7 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import RouteServices from '../services/routeServices';
-import type { GetFastestRouteResponse } from '../types/routeServicesInterface';
+import { GetFastestRouteResponse } from '../types/routeServicesInterface';
 
 export default function useGetRoute(
   destination: string,
@@ -10,24 +9,9 @@ export default function useGetRoute(
 ) {
   const routeServices = new RouteServices();
 
-  const query = useQuery({
-    queryKey: ['getRoute', destination],
-    queryFn: () => routeServices.getRoute(destination),
-    enabled: false,
-    retry: false,
+  return useMutation({
+    mutationFn: () => routeServices.getRoute(destination),
+    onSuccess: (data) => onSuccessCallback(data),
+    onError: (error) => onErrorCallback(error),
   });
-
-  useEffect(() => {
-    if (query.data) {
-      onSuccessCallback(query.data);
-    }
-  }, [query.data, onSuccessCallback]);
-
-  useEffect(() => {
-    if (query.error) {
-      onErrorCallback(query.error);
-    }
-  }, [query.error, onErrorCallback]);
-
-  return query;
 }

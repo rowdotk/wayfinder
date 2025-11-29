@@ -1,5 +1,5 @@
 import { StepLabel, Step, Stepper } from '@mui/material';
-import type { GetFastestRouteResponse } from '../types/routeServicesInterface';
+import { GetFastestRouteResponse } from '../types/routeServicesInterface';
 
 interface RouteStepperProps {
   route: GetFastestRouteResponse['route'];

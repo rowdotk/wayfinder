@@ -20,7 +20,7 @@ app.get('/', (_, res) => {
 
 app.get('/compute', async (req: Request, res: Response) => {
   try {
-    // hardcoded spaceShip because of instructions, but changeable if needed
+    // hardcoded spaceship as per instructions, but changeable if needed (and move into routeServices)
     const spaceship = millenniumFalcon;
 
     const validatedQuery = await routeControllers.getFastestRouteController(req);

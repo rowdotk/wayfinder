@@ -1,20 +1,10 @@
-import {
-  Alert,
-  Card,
-  CardContent,
-  Box,
-  TextField,
-  Button,
-  Autocomplete,
-  Snackbar,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { Alert, Card, CardContent, Box, TextField, Button, Autocomplete, Snackbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
 import '../styles/Card.css';
 import useGetRoute from '../hooks/useGetRoute';
-import type { GetFastestRouteResponse } from '../types/routeServicesInterface';
+import { GetFastestRouteResponse } from '../types/routeServicesInterface';
+import { SPACESHIPS, type Spaceship } from '../constants/spaceships';
 
 interface SearchCardProps {
   setResult: (result: GetFastestRouteResponse | null) => void;
@@ -22,21 +12,27 @@ interface SearchCardProps {
 
 export default function SearchCard(props: SearchCardProps) {
   const { setResult } = props;
+  // spaceship is actually not used except for the UI, since as per instruction the /compute endpoint does not accept a spaceship parameter
+  const [selectedSpaceship, setSelectedSpaceship] = useState<Spaceship | undefined>(undefined);
   const [destination, setDestination] = useState<string>('');
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
-  const { isFetching, refetch } = useGetRoute(destination, setResult, (error: any) => {
+  const { mutate: getRoute, isPending } = useGetRoute(destination, setResult, (error: any) => {
     setResult(null);
     setSnackbarMessage(error.response?.data?.error || 'An unknown error occurred');
   });
 
   const handleClick = () => {
+    if (!selectedSpaceship) {
+      setSnackbarMessage('A spaceship, chosen it must be.');
+      return;
+    }
     if (!destination) {
       setSnackbarMessage('Speak, you must… where go you desire.');
       return;
     }
     setSnackbarMessage('');
-    refetch();
+    getRoute();
   };
 
   useEffect(() => {
@@ -78,18 +74,19 @@ export default function SearchCard(props: SearchCardProps) {
                 width: '100%',
               }}
             >
-              <Typography variant="body1" fontWeight="bold">
+              <Typography variant="subtitle1" fontWeight="bold">
                 SPACESHIP
               </Typography>
-              <Tooltip title="The Millennium Falcon alone, you may choose.">
-                <Autocomplete
-                  fullWidth
-                  disabled
-                  options={[]}
-                  value="Millennium Falcon"
-                  renderInput={(params) => <TextField {...params} placeholder="Select spaceship" variant="outlined" />}
-                />
-              </Tooltip>
+              <Autocomplete
+                fullWidth
+                options={SPACESHIPS}
+                getOptionLabel={(option) => option.name}
+                value={selectedSpaceship}
+                onChange={(_, selected) => {
+                  setSelectedSpaceship(selected || undefined);
+                }}
+                renderInput={(params) => <TextField {...params} placeholder="Select spaceship" variant="outlined" />}
+              />
             </Box>
             <Box
               sx={{
@@ -97,7 +94,7 @@ export default function SearchCard(props: SearchCardProps) {
                 width: '100%',
               }}
             >
-              <Typography variant="body1" fontWeight="bold">
+              <Typography variant="subtitle1" fontWeight="bold">
                 DESTINATION
               </Typography>
               <TextField
@@ -127,7 +124,7 @@ export default function SearchCard(props: SearchCardProps) {
             }}
           >
             <SearchIcon sx={{ mr: 1 }} />
-            {isFetching ? 'Found soon, it will be…' : 'Find the way, you will'}
+            {isPending ? 'Found soon, it will be…' : 'Find the way, you will'}
           </Button>
         </CardContent>
       </Card>

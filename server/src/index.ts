@@ -32,5 +32,5 @@ app.get('/compute', async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}, the app is. Ready, it shall be.`);
 });

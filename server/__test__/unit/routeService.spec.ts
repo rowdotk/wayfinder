@@ -51,7 +51,7 @@ describe('routeService', () => {
     });
   });
 
-  it('Should return the fastest route even if it is not direct', async () => {
+  it('Should return the fastest route even if it is not the one with the least stops', async () => {
     vi.spyOn(mockDbServices, 'queryDB').mockResolvedValue([
       ...MOCK_ROUTES,
       { origin: 'Tatooine', destination: 'Endor', travel_time: 10 },

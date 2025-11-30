@@ -3,7 +3,6 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { RouteControllers } from './controllers/routeControllers';
 import { RouteServices } from './services/routeServices';
-import millenniumFalcon from './constants/millennium-falcon.json';
 
 const app = express();
 app.use(cors());
@@ -20,11 +19,8 @@ app.get('/', (_, res) => {
 
 app.get('/compute', async (req: Request, res: Response) => {
   try {
-    // hardcoded spaceship as per instructions, but changeable if needed (and move into routeServices)
-    const spaceship = millenniumFalcon;
-
     const validatedQuery = await routeControllers.getFastestRouteController(req);
-    const result = await routeServices.getFastestRoute(spaceship.departure, validatedQuery.arrival, spaceship);
+    const result = await routeServices.getFastestRoute(validatedQuery.spaceship, validatedQuery.arrival);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });

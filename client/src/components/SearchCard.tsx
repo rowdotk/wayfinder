@@ -17,10 +17,15 @@ export default function SearchCard(props: SearchCardProps) {
   const [destination, setDestination] = useState<string>('');
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
-  const { mutate: getRoute, isPending } = useGetRoute(destination, setResult, (error: any) => {
-    setResult(null);
-    setSnackbarMessage(error.response?.data?.error || 'An unknown error occurred');
-  });
+  const { mutate: getRoute, isPending } = useGetRoute(
+    selectedSpaceship?.code || '',
+    destination,
+    setResult,
+    (error: any) => {
+      setResult(null);
+      setSnackbarMessage(error.response?.data?.error || 'An unknown error occurred');
+    }
+  );
 
   const handleClick = () => {
     if (!selectedSpaceship) {

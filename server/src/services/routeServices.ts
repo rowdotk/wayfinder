@@ -7,6 +7,7 @@ import {
 } from '../types/routeServicesInterface';
 import { DBServices } from './dbServices';
 import { toTitleCase } from '../helpers/stringFormatting';
+import millenniumFalcon from '../constants/millennium-falcon.json';
 
 export class RouteServices implements RouteServicesInterface {
   private dbServices: DBServices;
@@ -115,25 +116,24 @@ export class RouteServices implements RouteServicesInterface {
     }
   };
 
-  public getFastestRoute = async (
-    origin: string,
-    destination: string,
-    spaceship: Spaceship
-  ): Promise<GetFastestRouteResponse> => {
+  public getFastestRoute = async (spaceship: string, destination: string): Promise<GetFastestRouteResponse> => {
     try {
-      const formattedOrigin = toTitleCase(origin);
+      // hardcoded spaceship as per instructions the endpoint only accepts one parameter which is arrival
+      const spaceshipAttributes: Spaceship = millenniumFalcon;
+
+      const formattedOrigin = toTitleCase(spaceshipAttributes.departure);
       const formattedDestination = toTitleCase(destination);
 
       if (formattedOrigin === formattedDestination) {
         throw new Error(`Already here, you are.`);
       }
 
-      const routes = await this.dbServices.queryDB(spaceship.routes_db, 'SELECT * FROM routes');
+      const routes = await this.dbServices.queryDB(spaceshipAttributes.routes_db, 'SELECT * FROM routes');
 
       const result = this.planRoute(
         formattedOrigin,
         formattedDestination,
-        spaceship,
+        spaceshipAttributes,
         routes.map((route, index) => {
           return {
             id: index + 1,

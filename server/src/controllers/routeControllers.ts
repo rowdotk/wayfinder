@@ -6,6 +6,8 @@ export class RouteControllers {
   constructor() {}
 
   private getFastestRouteSchema: ObjectSchema<GetFastestRouteRequest> = Joi.object<GetFastestRouteRequest>({
+    // hardcoded spaceship as per instructions the endpoint only accepts one parameter which is arrival
+    spaceship: Joi.string().optional().default('millennium-falcon'),
     arrival: Joi.string().required(),
   });
 

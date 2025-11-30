@@ -7,10 +7,10 @@ export default class RouteServices implements RouteServicesInterface {
     this.apiBaseUrl = 'http://localhost:8000';
   }
 
-  getRoute = async (destination: string) => {
+  getRoute = async (spaceship: string, destination: string) => {
     const response = await axios.get(`${this.apiBaseUrl}/compute`, {
       method: 'GET',
-      params: { arrival: destination },
+      params: { spaceship, arrival: destination },
     });
     return response.data;
   };

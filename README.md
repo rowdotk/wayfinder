@@ -6,10 +6,13 @@ This guide will help you navigate the stars and reach your destination through t
 
 ## Setup
 - Execute the following command in the root folder: `docker-compose up --build`
-- Make sure both the wayfinder-server and the wayfinder-client containers have successfully started
+- Make sure **both** the wayfinder-server and the wayfinder-client containers have successfully started (⚠️ The wayfinder-client could take a bit longer than wayfinder-server)
 - Now you can access the Wayfinder!
   - 🌌 Client (Frontend): http://localhost:8001
   - 🔌 Server (API): http://localhost:8000
+
+## Unit Tests
+Execute `npm test` in the root directory to execute all unit tests.
 
 ## API Endpoints
 **GET /compute**  
@@ -42,9 +45,8 @@ Response
 - Make the UI responsive across devices
 - Publish the Docker Images to a public registry
 
-## Preview
-<img width="1468" height="819" alt="Screenshot 2025-11-30 at 14 37 32" src="https://github.com/user-attachments/assets/aa4efd7c-65d4-4f8f-8594-4ad7ba45c1a4" />
-<img width="1470" height="822" alt="image" src="https://github.com/user-attachments/assets/c64f18ef-ec54-4e5d-a906-b5d7c79c08a2" />
+## Demo
+https://github.com/user-attachments/assets/054651fe-f203-4926-a1ad-a3ed89d91100
 
 
 

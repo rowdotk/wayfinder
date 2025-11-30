@@ -7,6 +7,7 @@ interface RouteStepperProps {
 
 export default function RouteStepper(props: RouteStepperProps) {
   const { route } = props;
+
   return (
     <Stepper orientation="vertical">
       {route.map((step) => (

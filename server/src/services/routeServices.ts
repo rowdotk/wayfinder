@@ -37,6 +37,7 @@ export class RouteServices implements RouteServicesInterface {
     fastestRoute?: PlannedRoute
   ): PlannedRoute | undefined => {
     try {
+      // initialize plannedRoute
       if (!plannedRoute) {
         plannedRoute = { route: [origin], duration: 0, remainingFuelDays: spaceship.autonomy };
       }
@@ -46,7 +47,7 @@ export class RouteServices implements RouteServicesInterface {
         throw new Error('Current location not found.');
       }
 
-      // find all routes that passes through currentLocation, sort by travel_time to minimize loop count (since we implemented shouldAbandonRoute())
+      // find all routes that passes through currentLocation, sort by travel_time to reduce unnecessary iteration (with shouldAbandonRoute())
       const connectingRoutes = routes
         .filter((route) => {
           return (
@@ -56,7 +57,7 @@ export class RouteServices implements RouteServicesInterface {
         })
         .sort((a, b) => a.travel_time - b.travel_time);
 
-      // if we run into a dead end, we move on to the next route
+      // if we reach a dead end, exit this loop and continue with the next route option
       if (connectingRoutes.length === 0) {
         return;
       }
@@ -91,13 +92,13 @@ export class RouteServices implements RouteServicesInterface {
           continue;
         }
 
-        // check if arrived
+        // check if we have arrived at the destination
         if (newPlannedRoute.route.at(-1) === destination) {
           fastestRoute = newPlannedRoute;
           continue;
         }
 
-        // if haven't arrived, nor abandoned, continue searching
+        // if we haven't arrived at the destination, nor abandoned the route, continue searching
         fastestRoute = this.planRoute(
           currentLocation,
           destination,

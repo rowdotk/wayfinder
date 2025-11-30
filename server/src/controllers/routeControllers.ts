@@ -1,4 +1,4 @@
-import { NextFunction, Request } from 'express';
+import { Request } from 'express';
 import { GetFastestRouteRequest } from '../types/routeServicesInterface';
 import Joi, { ObjectSchema } from 'joi';
 

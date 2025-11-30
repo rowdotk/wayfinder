@@ -1,10 +1,10 @@
 import { Alert, Card, CardContent, Box, TextField, Button, Autocomplete, Snackbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from 'react';
-import '../styles/card.css';
 import useGetRoute from '../hooks/useGetRoute';
 import { GetFastestRouteResponse } from '../types/routeServicesInterface';
 import { SPACESHIPS, type Spaceship } from '../constants/spaceships';
+import '../styles/card.css';
 
 interface SearchCardProps {
   setResult: (result: GetFastestRouteResponse | null) => void;
@@ -70,7 +70,6 @@ export default function SearchCard(props: SearchCardProps) {
           >
             <Box
               sx={{
-                alignItems: 'flex-start',
                 width: '100%',
               }}
             >
@@ -90,7 +89,6 @@ export default function SearchCard(props: SearchCardProps) {
             </Box>
             <Box
               sx={{
-                alignItems: 'flex-start',
                 width: '100%',
               }}
             >
@@ -98,6 +96,7 @@ export default function SearchCard(props: SearchCardProps) {
                 DESTINATION
               </Typography>
               <TextField
+                fullWidth
                 placeholder="Enter destination"
                 variant="outlined"
                 onChange={(e) => setDestination(e.target.value)}
@@ -107,7 +106,6 @@ export default function SearchCard(props: SearchCardProps) {
                     handleClick();
                   }
                 }}
-                fullWidth
               />
             </Box>
           </Box>
@@ -120,7 +118,7 @@ export default function SearchCard(props: SearchCardProps) {
               fontWeight: 'bold',
               textAlign: 'center',
               width: '80%',
-              height: '10%',
+              height: '12%',
             }}
           >
             <SearchIcon sx={{ mr: 1 }} />

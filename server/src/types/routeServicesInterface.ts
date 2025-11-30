@@ -7,7 +7,6 @@ export type GetFastestRouteResponse = { route: string[]; duration: number };
 export type PlannedRoute = GetFastestRouteResponse & { remainingFuelDays: number };
 
 export type Spaceship = { autonomy: number; departure: string; routes_db: string };
-
 export interface RouteServicesInterface {
   getFastestRoute: (origin: string, destination: string, spaceship: Spaceship) => Promise<GetFastestRouteResponse>;
 }

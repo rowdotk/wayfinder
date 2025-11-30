@@ -1,6 +1,5 @@
 import { DBServicesInterface } from '../types/dbServicesInterface';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 export class DBServices implements DBServicesInterface {

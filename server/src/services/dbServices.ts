@@ -7,8 +7,6 @@ export class DBServices implements DBServicesInterface {
   private dbFolderPath: string;
 
   constructor() {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
     this.dbFolderPath = join(__dirname, '../db');
   }
 

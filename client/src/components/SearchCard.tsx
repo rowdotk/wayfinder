@@ -13,7 +13,7 @@ interface SearchCardProps {
 export default function SearchCard(props: SearchCardProps) {
   const { setResult } = props;
   // spaceship is actually not used except for the UI, since as per instruction the /compute endpoint does not accept a spaceship parameter
-  const [selectedSpaceship, setSelectedSpaceship] = useState<Spaceship | undefined>(undefined);
+  const [selectedSpaceship, setSelectedSpaceship] = useState<Spaceship | null>(null);
   const [destination, setDestination] = useState<string>('');
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
@@ -83,7 +83,7 @@ export default function SearchCard(props: SearchCardProps) {
                 getOptionLabel={(option) => option.name}
                 value={selectedSpaceship}
                 onChange={(_, selected) => {
-                  setSelectedSpaceship(selected || undefined);
+                  setSelectedSpaceship(selected || null);
                 }}
                 renderInput={(params) => <TextField {...params} placeholder="Select spaceship" variant="outlined" />}
               />

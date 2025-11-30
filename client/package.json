@@ -2,7 +2,6 @@
   "name": "wayfinder-client",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "start:client": "vite",
     "build": "tsc -b && vite build",

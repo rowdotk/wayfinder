@@ -54,7 +54,7 @@ Computes the fastest route to a given destination planet.
 - Add frontend tests
 - Publish the Docker images to a public registry.
 
-## Demo
+## Demo Video
 https://github.com/user-attachments/assets/63a52085-1080-47f9-9ce7-a1243c3a3de6
 
 **May the Force be with you 🌟**

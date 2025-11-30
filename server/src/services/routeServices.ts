@@ -118,7 +118,7 @@ export class RouteServices implements RouteServicesInterface {
 
   public getFastestRoute = async (spaceship: string, destination: string): Promise<GetFastestRouteResponse> => {
     try {
-      // hardcoded spaceship as per instructions the endpoint only accepts one parameter which is arrival
+      // hardcoded for now, could be replaced with a database query to get the spaceship attributes based on the spaceship param
       const spaceshipAttributes: Spaceship = millenniumFalcon;
 
       const formattedOrigin = toTitleCase(spaceshipAttributes.departure);

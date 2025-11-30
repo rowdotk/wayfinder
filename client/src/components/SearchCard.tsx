@@ -8,12 +8,12 @@ import { SPACESHIPS, type Spaceship } from '../constants/spaceships';
 
 interface SearchCardProps {
   setResult: (result: GetFastestRouteResponse | null) => void;
+  selectedSpaceship: Spaceship | null;
+  setSelectedSpaceship: (selectedSpaceship: Spaceship | null) => void;
 }
 
 export default function SearchCard(props: SearchCardProps) {
-  const { setResult } = props;
-  // spaceship is actually not used except for the UI, since as per instruction the /compute endpoint does not accept a spaceship parameter
-  const [selectedSpaceship, setSelectedSpaceship] = useState<Spaceship | null>(null);
+  const { setResult, selectedSpaceship, setSelectedSpaceship } = props;
   const [destination, setDestination] = useState<string>('');
   const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 

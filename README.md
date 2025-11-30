@@ -36,7 +36,7 @@ Response
 - Optimizes by duration first. eg: A longer direct route loses to a quicker multi-stop route. If durations are the same, the route with fewer stops is prioritised.
 
 ## Others
-- The frontend has a dropdown menu for `spaceship` but its purely cosmetic, as per instructions the /compute endpoint only accepts one parameter which is `arrival`
+- The frontend has a dropdown menu for `spaceship` but its purely cosmetic, as per instructions the `/compute` endpoint only accepts one parameter which is `arrival`
 - In the backend, the spaceship attributes is hardcoded as well, as we are constrained by the static `millennium-falcon.json` file.
 
 ## Future Improvements

@@ -1,6 +1,6 @@
 # Wayfinder
 
-Greetings, young Padawan! 💫 
+Greetings, young Padawan! 💫  
 This guide will help you navigate the stars and reach your destination through the Wayfinder.
 
 ## How to set it up
@@ -11,13 +11,13 @@ This guide will help you navigate the stars and reach your destination through t
   - 🔌 Server (API): http://localhost:8000
 
 ## API Endpoints
-**GET /compute**
+**GET /compute**  
 Computes the fastest route to a given destination planet.
 
-Request
+Request  
 `curl "http://localhost:8000/compute?arrival=Endor"`
 
-Response
+Response  
 `{
   "route": ["Tatooine", "Hoth", "Endor"],
   "duration": 8
@@ -39,8 +39,10 @@ Response
 - Store spaceship attributes in a database, allowing the /compute endpoint to accept a real spaceship parameter (Currently limited by JSON-based lookup)
 - Make the UI responsive across devices
 
+## Preview
+<img width="1468" height="819" alt="Screenshot 2025-11-30 at 14 37 32" src="https://github.com/user-attachments/assets/aa4efd7c-65d4-4f8f-8594-4ad7ba45c1a4" />
+<img width="1470" height="822" alt="image" src="https://github.com/user-attachments/assets/c64f18ef-ec54-4e5d-a906-b5d7c79c08a2" />
 
-  
 
 
 

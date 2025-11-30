@@ -1,13 +1,14 @@
 # 🌌 Wayfinder
 
-Greetings, young Padawan! 💫
+Greetings, young Padawan! ✨
 
 Through the stars you must go; with this guide, your destination you shall find.
 
 ## Setup
 
 - Execute the following command in the root folder: `docker-compose up --build`
-- Make sure **both** the wayfinder-server and the wayfinder-client containers have successfully started (⚠️ The wayfinder-client could take a bit longer than the wayfinder-server)
+- Make sure **both** the wayfinder-server and the wayfinder-client containers have successfully started  
+(⚠️ The wayfinder-client could take a bit longer than the wayfinder-server)
 - Now you can access the Wayfinder!
   - 🌌 Client: http://localhost:8001
   - 🔌 Server: http://localhost:8000
@@ -30,13 +31,13 @@ Computes the fastest route to a given destination planet.
 
 ## Technical Details
 
-- Case-insensitive search (e.g., _Endor_, _endor_, and _enDoR_, they all work)
 - Uses a recursive depth-first search algorithm
 - Aborts path computation when the current path is already longer than the known fastest path
 - Supports direct routes (e.g., Tatooine → Endor)
 - Optimizes by duration first:
   - A longer direct route loses to a quicker multi-stop route
   - If durations are the same, the route with fewer stops is prioritised
+- Case-insensitive search (e.g., _Endor_, _endor_, and _enDoR_, they all work)
 
 ## Others
 
@@ -46,15 +47,14 @@ Computes the fastest route to a given destination planet.
 
 ## Future Improvements
 
-- Save computed routes in the database to avoid future recomputation
+- Save computed routes in the database to avoid future recomputations
 - Store spaceship attributes in a database, allowing the `/compute` endpoint to accept a real spaceship parameter, removing the limitations imposed by static JSON files
-- Add a standardized `origin_code` and `destination_code` to the database, allowing consistent lookups regardless of input casing.
+- Add a standardized `origin_code` and `destination_code` to the `routes` table, allowing consistent lookups regardless of input casing.
 - Make the UI responsive across devices
 - Add frontend tests
 - Publish the Docker images to a public registry.
 
 ## Demo
-
-https://github.com/user-attachments/assets/054651fe-f203-4926-a1ad-a3ed89d91100
+https://github.com/user-attachments/assets/63a52085-1080-47f9-9ce7-a1243c3a3de6
 
 **May the Force be with you 🌟**

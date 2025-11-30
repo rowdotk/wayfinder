@@ -127,8 +127,7 @@ export class RouteServices implements RouteServicesInterface {
         throw new Error(`Already here, you are.`);
       }
 
-      const db = await this.dbServices.openDB(spaceship.routes_db);
-      const routes = await db.all('SELECT * FROM routes');
+      const routes = await this.dbServices.queryDB(spaceship.routes_db, 'SELECT * FROM routes');
 
       const result = this.planRoute(
         formattedOrigin,

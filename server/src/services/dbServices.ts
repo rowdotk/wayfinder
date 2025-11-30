@@ -21,4 +21,14 @@ export class DBServices implements DBServicesInterface {
       throw new Error(`${error}`);
     }
   }
+
+  async queryDB(dbFileName: string, query: string) {
+    try {
+      const db = await this.openDB(dbFileName);
+      return db.all(query);
+    } catch (error) {
+      console.error(`dbServices::queryDB::error ${error}`);
+      throw new Error(`${error}`);
+    }
+  }
 }

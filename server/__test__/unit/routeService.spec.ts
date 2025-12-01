@@ -2,11 +2,7 @@ import { describe, it, expect, beforeAll, afterEach, vi } from 'vitest';
 import { DBServices } from '../../src/services/dbServices';
 import { RouteServices } from '../../src/services/routeServices';
 
-const MOCK_SPACESHIP = {
-  autonomy: 6,
-  departure: 'Tatooine',
-  routes_db: 'universe.db',
-};
+const MOCK_SPACESHIP_CODE = 'millennium-falcon';
 
 const MOCK_ROUTES = [
   { origin: 'Tatooine', destination: 'Dagobah', travel_time: 6 },
@@ -32,7 +28,7 @@ describe('routeService', () => {
   });
 
   it('Should correctly compute the fastest route', async () => {
-    const response = await mockRouteServices.getFastestRoute('Tatooine', 'Endor', MOCK_SPACESHIP);
+    const response = await mockRouteServices.getFastestRoute(MOCK_SPACESHIP_CODE, 'Endor');
     expect(response).toMatchObject({
       route: ['Tatooine', 'Hoth', 'Endor'],
       duration: 8,
@@ -44,7 +40,7 @@ describe('routeService', () => {
       ...MOCK_ROUTES,
       { origin: 'Tatooine', destination: 'Endor', travel_time: 2 },
     ]);
-    const response = await mockRouteServices.getFastestRoute('Tatooine', 'Endor', MOCK_SPACESHIP);
+    const response = await mockRouteServices.getFastestRoute(MOCK_SPACESHIP_CODE, 'Endor');
     expect(response).toMatchObject({
       route: ['Tatooine', 'Endor'],
       duration: 2,
@@ -56,7 +52,7 @@ describe('routeService', () => {
       ...MOCK_ROUTES,
       { origin: 'Tatooine', destination: 'Endor', travel_time: 10 },
     ]);
-    const response = await mockRouteServices.getFastestRoute('Tatooine', 'Endor', MOCK_SPACESHIP);
+    const response = await mockRouteServices.getFastestRoute(MOCK_SPACESHIP_CODE, 'Endor');
     expect(response).toMatchObject({
       route: ['Tatooine', 'Hoth', 'Endor'],
       duration: 8,
@@ -64,13 +60,13 @@ describe('routeService', () => {
   });
 
   it('Should throw an error if no route is found', async () => {
-    await expect(mockRouteServices.getFastestRoute('Tatooine', 'Naboo', MOCK_SPACESHIP)).rejects.toThrow(
+    await expect(mockRouteServices.getFastestRoute(MOCK_SPACESHIP_CODE, 'Naboo')).rejects.toThrow(
       'Between Tatooine and Naboo, a way exists not.'
     );
   });
 
   it('Should throw an error if the origin and destination are the same', async () => {
-    await expect(mockRouteServices.getFastestRoute('Tatooine', 'Tatooine', MOCK_SPACESHIP)).rejects.toThrow(
+    await expect(mockRouteServices.getFastestRoute(MOCK_SPACESHIP_CODE, 'Tatooine')).rejects.toThrow(
       'Already here, you are.'
     );
   });

@@ -14,7 +14,7 @@ const dbServices = new DBServices();
 const routeServices = new RouteServices(dbServices);
 
 app.get('/', (_, res) => {
-  res.send('The way, you have found. 🪐');
+  res.send('Greetings, young Padawan. 🪐');
 });
 
 app.get('/compute', async (req: Request, res: Response) => {

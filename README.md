@@ -8,7 +8,7 @@ Through the stars you must go; with this guide, your destination you shall find.
 
 - Execute the following command in the root folder: `docker-compose up --build`
 - Make sure **both** the wayfinder-server and the wayfinder-client containers have successfully started  
-(⚠️ The wayfinder-client could take a bit longer than the wayfinder-server)
+  (⚠️ The wayfinder-client could take a bit longer than the wayfinder-server)
 - Now you can access the Wayfinder!
   - 🌌 Client: http://localhost:8001
   - 🔌 Server: http://localhost:8000
@@ -35,7 +35,7 @@ Computes the fastest route to a given destination planet.
 - Aborts path computation when the current path is already longer than the known fastest path
 - Supports direct routes (e.g., Tatooine → Endor)
 - Optimizes by duration first:
-  - A longer direct route loses to a quicker multi-stop route
+  - A longer direct route loses to a quicker multi-stop route (not using breath-first search for this reason)
   - If durations are the same, the route with fewer stops is prioritised
 - Case-insensitive search (e.g., _Endor_, _endor_, and _enDoR_, they all work)
 
@@ -55,6 +55,7 @@ Computes the fastest route to a given destination planet.
 - Publish the Docker images to a public registry.
 
 ## Demo Video
+
 https://github.com/user-attachments/assets/63a52085-1080-47f9-9ce7-a1243c3a3de6
 
 **May the Force be with you 🌟**
